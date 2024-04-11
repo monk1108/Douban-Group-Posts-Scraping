@@ -1,7 +1,7 @@
 ### Post scraping for douban group posts
 
 #### Post Scraping
-TODO: add the cookie from your own webpage!
+Before start: add the cookie from your own webpage!
 
 - posts from douban groups: `python scraping.py`
 - content and replies from the posts scraped above: `python scraping_content.py`
