@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page_title }}</title>
+  <style>
+    ul.table_head {
+        /* 固定在页面顶部 */
+        position: fixed;
+        top: 0;
+        z-index: 1000; /* 较小的 z-index 值 */
+
+        /* 显示在一行 */
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+
+        /* 设置底部外边距 */
+        margin-bottom: 20px;
+
+        /* 其他样式 */
+        list-style-type: none;
+        padding: 10px;
+        margin: 0;
+        text-align: center;
+    }
+
+    /* 为内容区域添加与顶部固定元素高度相等的上边距 */
+    .content {
+        margin-top: 100px/* 与固定元素高度相等的值 */;
+        padding-top: 10px;
+    }
+
+
+    body {
+        line-height: 1.5;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    th.idx, td.idx {
+      width: 10px; /* 标题的宽度 */
+      vertical-align: top;
+    }
+
+    th.title, td.title {
+      width: 150px; /* 标题的宽度 */
+      vertical-align: top; /* Align content to the top */
+    }
+
+    th.content, td.content {
+      width: 200px; /* 正文的宽度 */
+      vertical-align: top; /* Align content to the top */
+    }
+
+    th.reply, td.reply {
+      width: 500px; /* 正文的宽度 */
+      vertical-align: top;
+    }
+
+    th, td {
+      border: 1.5px solid #003C43;
+      text-align: left;
+      padding: 8px;
+    }
+
+    th {
+      background-color: #77B0AA;
+    }
+
+    h2 {
+      text-align: center; /* Centering the heading */
+    }
+
+    /* Style for combined link and title column */
+    .link-title {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      vertical-align: top; /* Align content to the top */
+    }
+</style>
+</head>
+<body>
+
+<h2>{{ page_title }}</h2>
+
+<!-- 添加链接列表 -->
+<ul class="table_head">
+  <li><a href="/homdi">宏迪</a></li>
+  <li><a href="/lyd">lyd</a></li>
+  <li><a href="/yuzhi_wang">宇直</a></li>
+  <li><a href="/wakin">华健</a></li>
+  <li><a href="/wakin_chau">周华健</a></li>
+</ul>
+
+<table id="recordTable">
+  <thead>
+    <tr>
+      <th class="idx">ID</th>
+      <th class="title">标题</th>
+      <th class="content">正文</th>
+      <th class="reply">回复</th>
+    </tr>
+  </thead>
+  <tbody id="tableBody">
+    <!-- Records will be dynamically added here -->
+    {% for record in records %}
+      <tr>
+        <td class="link-title">{{ record[0] }}</td>
+        <td class="link-title">
+          <a href="{{ record[4] }}" target="_blank">{{ record[1] }} - {{ record[4] }}</a>
+        </td>
+        <td class="content">{{ record[2] }}</td>
+        <td class="reply">
+          <ul>
+            {% for reply in record[3].strip('[]').split(', ') %}
+              <li>{{ reply.strip('"') }}</li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+
+</body>
+</html>
